@@ -1,8 +1,15 @@
 package com.akonic.notesudo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,24 +18,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.InputType;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -39,6 +36,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 public class Ocr extends AppCompatActivity {
     EditText mResultEt;
     ImageView mPreviewIv;
+    Button btn;
 
     private static final int CAMERA_REQUEST_CODE=200;
     private static final int STORAGE_REQUEST_CODE=400;
@@ -47,25 +45,33 @@ public class Ocr extends AppCompatActivity {
 
     String cameraPermission[];
     String storagePermission[];
-    Button b1,b2;
-    Toolbar toolbar;
+    String st;
+
     Uri image_uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ocr);
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+       // actionBar.setSubtitle("Click + button to insert Image");
 
         mResultEt=findViewById(R.id.resultId);
-        mResultEt.setInputType(InputType.TYPE_NULL);
-
         mPreviewIv=findViewById(R.id.imageIv);
         cameraPermission=new String[]{Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        btn=findViewById(R.id.btn1);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Ocr.this,AddNote.class);
+                st=mResultEt.getText().toString();
+                i.putExtra("Value",st);
+                startActivity(i);
+                finish();
+            }
+        });
 
     }
 
@@ -145,7 +151,7 @@ public class Ocr extends AppCompatActivity {
     private boolean checkStoragePermission() {
         boolean result= ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);
-     return result;
+        return result;
     }
 
     private void requestCameraPermission() {

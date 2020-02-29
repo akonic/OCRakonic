@@ -33,13 +33,13 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 
-public class AddNote extends AppCompatActivity {
+public class CopyNote extends AppCompatActivity {
     Toolbar toolbar;
     EditText noteTitle,noteDetails;
     Calendar c;
     String todaysDate;
     String currentTime;
-    //String st;
+    String st;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,8 @@ public class AddNote extends AppCompatActivity {
 
         noteDetails = findViewById(R.id.noteDetails);
         noteTitle = findViewById(R.id.noteTitle);
-      //  st=getIntent().getExtras().getString("Value");
-        //noteDetails.setText(st);
+        st=getIntent().getExtras().getString("Value");
+        noteDetails.setText(st);
         noteTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

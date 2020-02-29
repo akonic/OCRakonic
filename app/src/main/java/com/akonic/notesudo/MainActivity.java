@@ -22,7 +22,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      //  toolbar = findViewById(R.id.toolbar);
+       // toolbar = findViewById(R.id.toolbar);
         //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         //setSupportActionBar(toolbar);
        noItemText = findViewById(R.id.noItemText);
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity{
             noItemText.setVisibility(View.GONE);
             displayList(allNotes);
         }
+
 
     }
 
@@ -126,5 +130,6 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
+
 
 }

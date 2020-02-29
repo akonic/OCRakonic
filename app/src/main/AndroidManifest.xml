@@ -20,13 +20,15 @@
             </intent-filter>
         </activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme1"/>
         <activity android:name=".AddNote" />
         <activity android:name=".Detail" />
         <activity android:name=".Edit" />
         <activity android:name=".Ocr"
+            android:theme="@style/AppTheme1"
             />
         <activity android:name=".StartScreen" />
+        <activity android:name=".CopyNote" />
     </application>
 
 </manifest>
