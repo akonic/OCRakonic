@@ -65,7 +65,7 @@ public class Ocr extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Ocr.this,AddNote.class);
+                Intent i = new Intent(Ocr.this,CopyNote.class);
                 st=mResultEt.getText().toString();
                 i.putExtra("Value",st);
                 startActivity(i);
