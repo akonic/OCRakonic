@@ -1,31 +1,15 @@
 package com.akonic.notesudo;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.ContentValues;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.SparseArray;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -39,22 +23,45 @@ public class CopyNote extends AppCompatActivity {
     Calendar c;
     String todaysDate;
     String currentTime;
+    ImageView save,delete,back;
     String st;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("New Note");
-
+        //  toolbar = findViewById(R.id.toolbar);
+        //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setTitle("New Note");
+        save=findViewById(R.id.sv);
+        back=findViewById(R.id.bck);
+        delete=findViewById(R.id.del);
         noteDetails = findViewById(R.id.noteDetails);
-        noteTitle = findViewById(R.id.noteTitle);
         st=getIntent().getExtras().getString("Value");
         noteDetails.setText(st);
+        noteTitle = findViewById(R.id.noteTitle);
+        //  st=getIntent().getExtras().getString("Value");
+        //noteDetails.setText(st);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savenote();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletenote();
+            }
+        });
         noteTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,7 +71,7 @@ public class CopyNote extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() != 0){
-                    getSupportActionBar().setTitle(s);
+                    //          getSupportActionBar().setTitle(s);
                 }
             }
 
@@ -83,6 +90,27 @@ public class CopyNote extends AppCompatActivity {
 
     }
 
+    private void savenote() {
+        if(noteTitle.getText().length() != 0){
+            Note note = new Note(noteTitle.getText().toString(),noteDetails.getText().toString(),todaysDate,currentTime);
+            SimpleDatabase sDB = new SimpleDatabase(this);
+            long id = sDB.addNote(note);
+            Note check = sDB.getNote(id);
+            Log.d("inserted", "Note: "+ id + " -> Title:" + check.getTitle()+" Date: "+ check.getDate());
+            onBackPressed();
+
+            Toast.makeText(this, "Note Saved.", Toast.LENGTH_SHORT).show();
+        }else {
+            noteTitle.setError("Title Can not be Blank.");
+        }
+    }
+
+    private void deletenote() {
+        Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
+        onBackPressed();
+
+    }
+
     private String pad(int time) {
         if(time < 10)
             return "0"+time;
@@ -91,16 +119,16 @@ public class CopyNote extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    // @Override
+   /* public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.save_menu,menu);
         return true;
-    }
+    }*/
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.save){
+    //@Override
+  /*  public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.sv){
             if(noteTitle.getText().length() != 0){
                 Note note = new Note(noteTitle.getText().toString(),noteDetails.getText().toString(),todaysDate,currentTime);
                 SimpleDatabase sDB = new SimpleDatabase(this);
@@ -119,7 +147,7 @@ public class CopyNote extends AppCompatActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

@@ -1,36 +1,22 @@
 package com.akonic.notesudo;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class Edit extends AppCompatActivity {
     Toolbar toolbar;
@@ -39,44 +25,48 @@ public class Edit extends AppCompatActivity {
     String todaysDate;
     String currentTime;
     long nId;
-
+    ImageView edit,back,delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+      //  toolbar = findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
 
         Intent i = getIntent();
         nId = i.getLongExtra("ID",0);
         SimpleDatabase db = new SimpleDatabase(this);
         Note note = db.getNote(nId);
-
+        edit=findViewById(R.id.sv);
+        back=findViewById(R.id.bck);
+       delete=findViewById(R.id.del);
         final String title = note.getTitle();
         String content = note.getContent();
         nTitle = findViewById(R.id.noteTitle);
         nContent = findViewById(R.id.noteDetails);
-        nTitle.addTextChangedListener(new TextWatcher() {
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                getSupportActionBar().setTitle(title);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() != 0){
-                    getSupportActionBar().setTitle(s);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View view) {
+                editnote();
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletenote();
+            }
+        });
+
+
 
 
         nTitle.setText(title);
@@ -90,6 +80,21 @@ public class Edit extends AppCompatActivity {
         Log.d("TIME", "Time: "+currentTime);
     }
 
+    private void deletenote() {
+        Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
+        onBackPressed();
+    }
+
+    private void editnote() {
+        Note note = new Note(nId,nTitle.getText().toString(),nContent.getText().toString(),todaysDate,currentTime);
+        Log.d("EDITED", "edited: before saving id -> " + note.getId());
+        SimpleDatabase sDB = new SimpleDatabase(getApplicationContext());
+        long id = sDB.editNote(note);
+        Log.d("EDITED", "EDIT: id " + id);
+        goToMain();
+        Toast.makeText(this, "Note Edited.", Toast.LENGTH_SHORT).show();
+    }
+
 
     private String pad(int time) {
         if(time < 10)
@@ -97,16 +102,16 @@ public class Edit extends AppCompatActivity {
         return String.valueOf(time);
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+  //  @Override
+  /*  public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.save_menu,menu);
         return true;
-    }
+    }*/
 
-    @Override
+  /*  @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.save){
+        if(item.getItemId() == R.id.sv){
             Note note = new Note(nId,nTitle.getText().toString(),nContent.getText().toString(),todaysDate,currentTime);
             Log.d("EDITED", "edited: before saving id -> " + note.getId());
             SimpleDatabase sDB = new SimpleDatabase(getApplicationContext());
@@ -119,7 +124,7 @@ public class Edit extends AppCompatActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private void goToMain() {
         Intent i = new Intent(this,MainActivity.class);
