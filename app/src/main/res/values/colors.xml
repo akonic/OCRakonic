@@ -6,4 +6,9 @@
     <color name="white">#fff</color>
     <color name="card_bg_color">#f6f6f6</color>
     <color name="card_bg_dark_color">#0e0e0e</color>
+    <color name="light_gray">#D3D3D3</color>
+    <color name="app_theme">#F07B1E58</color>
+    <color name="app_theme_light">#7B1E58</color>
+    <color name="app_theme_dark">#3D0F54</color>
+
 </resources>

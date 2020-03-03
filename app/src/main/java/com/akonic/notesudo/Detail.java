@@ -39,8 +39,8 @@ public class Detail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-     //   Toolbar toolbar = findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+        //   Toolbar toolbar = findViewById(R.id.toolbar);
+        // setSupportActionBar(toolbar);
         edit=findViewById(R.id.sv);
         back=findViewById(R.id.bck);
         delete=findViewById(R.id.del);
@@ -67,7 +67,7 @@ public class Detail extends AppCompatActivity {
         id = i.getLongExtra("ID",0);
         SimpleDatabase db = new SimpleDatabase(this);
         Note note = db.getNote(id);
-     //   getSupportActionBar().setTitle(note.getTitle());
+        //   getSupportActionBar().setTitle(note.getTitle());
         TextView details = findViewById(R.id.noteDesc);
         details.setText(note.getContent());
         details.setMovementMethod(new ScrollingMovementMethod());

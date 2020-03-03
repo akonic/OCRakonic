@@ -31,8 +31,8 @@ public class Edit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-      //  toolbar = findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+        //  toolbar = findViewById(R.id.toolbar);
+        // setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -42,7 +42,7 @@ public class Edit extends AppCompatActivity {
         Note note = db.getNote(nId);
         edit=findViewById(R.id.sv);
         back=findViewById(R.id.bck);
-       delete=findViewById(R.id.del);
+        //   delete=findViewById(R.id.del);
         final String title = note.getTitle();
         String content = note.getContent();
         nTitle = findViewById(R.id.noteTitle);
@@ -59,12 +59,12 @@ public class Edit extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        delete.setOnClickListener(new View.OnClickListener() {
+      /*  delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 deletenote();
             }
-        });
+        });*/
 
 
 
@@ -102,7 +102,7 @@ public class Edit extends AppCompatActivity {
         return String.valueOf(time);
 
     }
-  //  @Override
+    //  @Override
   /*  public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.save_menu,menu);

@@ -30,20 +30,15 @@ public class CopyNote extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
-        //  toolbar = findViewById(R.id.toolbar);
-        //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setTitle("New Note");
-        save=findViewById(R.id.sv);
-        back=findViewById(R.id.bck);
-        delete=findViewById(R.id.del);
+
+        save=findViewById(R.id.save);
+        back=findViewById(R.id.back);
+
         noteDetails = findViewById(R.id.noteDetails);
         st=getIntent().getExtras().getString("Value");
         noteDetails.setText(st);
         noteTitle = findViewById(R.id.noteTitle);
-        //  st=getIntent().getExtras().getString("Value");
-        //noteDetails.setText(st);
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,12 +51,7 @@ public class CopyNote extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deletenote();
-            }
-        });
+
         noteTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -136,12 +126,10 @@ public class CopyNote extends AppCompatActivity {
                 Note check = sDB.getNote(id);
                 Log.d("inserted", "Note: "+ id + " -> Title:" + check.getTitle()+" Date: "+ check.getDate());
                 onBackPressed();
-
                 Toast.makeText(this, "Note Saved.", Toast.LENGTH_SHORT).show();
             }else {
                 noteTitle.setError("Title Can not be Blank.");
             }
-
         }else if(item.getItemId() == R.id.delete){
             Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
             onBackPressed();

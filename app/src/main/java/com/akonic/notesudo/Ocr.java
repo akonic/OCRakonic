@@ -54,7 +54,7 @@ public class Ocr extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ocr);
         ActionBar actionBar = getSupportActionBar();
-       // actionBar.setSubtitle("Click + button to insert Image");
+        // actionBar.setSubtitle("Click + button to insert Image");
 
         mResultEt=findViewById(R.id.resultId);
         mPreviewIv=findViewById(R.id.imageIv);
@@ -87,10 +87,6 @@ public class Ocr extends AppCompatActivity {
         if(id==R.id.addImage)
         {
             showImageImportDialog();
-        }
-        if(id==R.id.settings)
-        {
-            Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
