@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity{
     Adapter adapter;
     TextView noItemText;
     SimpleDatabase simpleDatabase;
-    ImageView imageView,iv;
+    ImageView scan,add_notes,bg;
     EditText e;
 
     @Override
@@ -57,12 +57,13 @@ public class MainActivity extends AppCompatActivity{
         //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         //setSupportActionBar(toolbar);
        noItemText = findViewById(R.id.noItemText);
-       imageView=findViewById(R.id.imageView2);
-       iv=findViewById(R.id.imageView3);
+       scan = findViewById(R.id.scanimage);
+       add_notes = (ImageView)findViewById(R.id.addnotes);
+       bg = findViewById(R.id.bg);
        e=findViewById(R.id.search_input);
-        e.setInputType(InputType.TYPE_NULL);
+       e.setInputType(InputType.TYPE_NULL);
 
-       imageView.setOnClickListener(new View.OnClickListener() {
+       scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -72,25 +73,29 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(i);
             }
         });
-        iv.setOnClickListener(new View.OnClickListener() {
+        add_notes.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Intent i= new Intent(MainActivity.this,AddNote.class);
                 Toast.makeText(getBaseContext(), "Add New Note" , Toast.LENGTH_SHORT ).show();
                 startActivity(i);
             }
         });
-         simpleDatabase = new SimpleDatabase(this);
+
+        simpleDatabase = new SimpleDatabase(this);
         List<Note> allNotes = simpleDatabase.getAllNotes();
         recyclerView = findViewById(R.id.allNotesList);
 
         if(allNotes.isEmpty()){
             noItemText.setVisibility(View.VISIBLE);
+            bg.setVisibility(View.VISIBLE);
+
         }else {
             noItemText.setVisibility(View.GONE);
+            bg.setVisibility(View.GONE);
             displayList(allNotes);
         }
-
 
     }
 
@@ -101,35 +106,19 @@ public class MainActivity extends AppCompatActivity{
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.add){
-            Toast.makeText(this, "Add New Note", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this,AddNote.class);
-            startActivity(i);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         List<Note> getAllNotes = simpleDatabase.getAllNotes();
         if(getAllNotes.isEmpty()){
             noItemText.setVisibility(View.VISIBLE);
+            bg.setVisibility(View.VISIBLE);
+
         }else {
             noItemText.setVisibility(View.GONE);
+            bg.setVisibility(View.GONE);
             displayList(getAllNotes);
         }
 
 
     }
-
-
 }

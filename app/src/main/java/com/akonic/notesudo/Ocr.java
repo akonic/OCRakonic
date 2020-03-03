@@ -65,7 +65,7 @@ public class Ocr extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Ocr.this,AddNote.class);
+                Intent i = new Intent(Ocr.this,CopyNote.class);
                 st=mResultEt.getText().toString();
                 i.putExtra("Value",st);
                 startActivity(i);
@@ -87,10 +87,6 @@ public class Ocr extends AppCompatActivity {
         if(id==R.id.addImage)
         {
             showImageImportDialog();
-        }
-        if(id==R.id.settings)
-        {
-            Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

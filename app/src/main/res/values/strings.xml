@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Note Me</string>
     <string name="title_activity_detail">Detail</string>
+    <string name="empty_notes">Let\'s create a <font color="#260635">Note</font> together</string>
 </resources>

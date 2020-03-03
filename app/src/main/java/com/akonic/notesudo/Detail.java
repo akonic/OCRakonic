@@ -24,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,26 +34,45 @@ import java.util.List;
 
 public class Detail extends AppCompatActivity {
     long id;
-
+    ImageView edit,back,delete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        
-        
+        //   Toolbar toolbar = findViewById(R.id.toolbar);
+        // setSupportActionBar(toolbar);
+        edit=findViewById(R.id.sv);
+        back=findViewById(R.id.bck);
+        delete=findViewById(R.id.del);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editnote();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletenote();
+            }
+        });
 
         Intent i = getIntent();
         id = i.getLongExtra("ID",0);
         SimpleDatabase db = new SimpleDatabase(this);
         Note note = db.getNote(id);
-        getSupportActionBar().setTitle(note.getTitle());
+        //   getSupportActionBar().setTitle(note.getTitle());
         TextView details = findViewById(R.id.noteDesc);
         details.setText(note.getContent());
         details.setMovementMethod(new ScrollingMovementMethod());
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+ /*       FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,15 +82,28 @@ public class Detail extends AppCompatActivity {
                 goToMain();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
     }
 
-    @Override
+    private void deletenote() {
+        SimpleDatabase db = new SimpleDatabase(getApplicationContext());
+        db.deleteNote(id);
+        Toast.makeText(getApplicationContext(),"Note Deleted",Toast.LENGTH_SHORT).show();
+        goToMain();
+    }
+
+    private void editnote() {
+        Intent i = new Intent(this,Edit.class);
+        i.putExtra("ID",id);
+        startActivity(i);
+    }
+
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.edit_menu,menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
