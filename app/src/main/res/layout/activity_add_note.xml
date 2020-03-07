@@ -55,6 +55,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.071"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back"
         app:srcCompat="@drawable/box" />
@@ -64,20 +65,22 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/tick" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/back"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:background="#00CA2626"
+        android:layout_width="32dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="16dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/left_back" />

@@ -23,8 +23,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#fff"
-                app:cardCornerRadius="3dp"
+                app:cardCornerRadius="30dp"
+
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -52,13 +52,27 @@
                         android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/btn1"
+
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:background="#741C58"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/round"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:textColor="#fff"
 
-                        android:text=" Copy to notes "/>
+                        android:text=" Copy to\nnotes "/>
+                        <Button
+                            android:id="@+id/btn2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="10dp"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/round"
+                            android:textColor="#fff"
+
+                            android:text=" Copy to \n   clipboard   "/>
 
 
 
@@ -71,7 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="#fff"
-                app:cardCornerRadius="3dp"
+
+                app:cardCornerRadius="30dp"
                 android:layout_marginTop="10dp"
                 app:cardUseCompatPadding="true">
 
@@ -80,6 +95,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="5dp">
+                    <TextView
+                        android:layout_width="83dp"
+                        android:layout_height="wrap_content"
+                        android:text="Image"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/imageIv"
@@ -90,11 +110,7 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="83dp"
-                    android:layout_height="wrap_content"
-                    android:text="Image"
-                    android:textSize="20sp" />
+
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>

@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
@@ -36,7 +37,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 public class Ocr extends AppCompatActivity {
     EditText mResultEt;
     ImageView mPreviewIv;
-    Button btn;
+    Button btn,msg;
+    String t;
 
     private static final int CAMERA_REQUEST_CODE=200;
     private static final int STORAGE_REQUEST_CODE=400;
@@ -73,6 +75,20 @@ public class Ocr extends AppCompatActivity {
             }
         });
 
+   msg=findViewById(R.id.btn2);
+        msg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent();
+                t=mResultEt.getText().toString();
+                i.setAction(Intent.ACTION_SEND);
+                i.putExtra(Intent.EXTRA_TEXT,t);
+
+                i.setType("text/plain");
+                startActivity(i);
+
+            }
+        });
     }
 
     @Override
