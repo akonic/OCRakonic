@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+
+
+    <item
+        android:id="@+id/bank"
+        android:title="Scan Text"
+        />
+    <item
+        android:id="@+id/ngo"
+        android:title="New Note"
+        />
+    <item
+        android:id="@+id/devFragment"
+        android:title="Share App"
+        />
+    <item
+        android:id="@+id/visionFragment"
+        android:title="XYZ"
+        />
+
+    <item
+        android:id="@+id/signFragment"
+            android:title="XYZ"
+        />
+
+</menu>
